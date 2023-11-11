@@ -1,0 +1,198 @@
+.wrapper{
+    min-height:100%;
+    position:relative;
+}
+
+/*----標題1----------------------------------------*/
+.bigtitle{
+    color:#ffffff;     /*文字顏色*/ 
+    font-size:50px;     /*文字大小*/
+    font-family:微軟正黑體;     /*文字樣式*/
+    font-weight:bolder;     /*文字粗細*/
+    padding:10px;
+    text-align:center;      /*置中*/
+    background-color:#4472c4;         /*區塊顏色*/
+    z-index:1;
+}
+
+/*----標題2----------------------------------------*/
+.smalltitle{
+    font-size:25px;     /*文字大小*/
+    font-family:微軟正黑體;     /*文字樣式*/
+    font-weight:bold;     /*文字粗細*/
+    padding:5px;
+    text-align:center;      /*置中*/
+    background-color: #A5A5A5;         /*區塊顏色*/
+    z-index:1;
+}
+.col1{
+    color:#BDD7EE;
+}
+.col2{
+    color:#FFF2CC;
+}
+.col3{
+    color:#FF0000;
+}
+
+
+/*----鞋櫃----------------------------------------*/
+.centerca1{
+    padding-top:50px;
+    display:flex;
+    justify-content:center;         /*區塊水平對齊樣式*/
+    align-items:center;            /*區塊垂直對齊樣式*/
+    z-index:1;
+}
+.centerca2{
+    padding-top:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1;
+}
+.shca{
+    width:150px;
+    height:150px;
+    margin:10px;
+    text-align: center;
+    line-height:150px;
+    background-color:#DEEBF7;
+    border-radius: 20px;            /*圓角樣式*/
+    border: 10px solid #DAE3F3;         /*框線樣式*/
+    font-family:微軟正黑體;
+    font-size:50px; 
+    font-weight:bolder;
+}
+.shca:active{
+    background-color:#9DC3E6;
+}
+.shcb{
+    width:150px;
+    height:150px;
+    margin:10px;
+    text-align: center;
+    line-height:150px;
+    background-color:#FFE699;
+    border-radius: 20px;            /*圓角樣式*/
+    border: 10px solid #FFC000;         /*框線樣式*/
+    font-family:微軟正黑體;
+    font-size:50px; 
+    font-weight:bolder;
+    display:none;
+}
+.shcb:active{
+    background-color:#FFFF00;
+}
+
+
+/*----藍色提示框----------------------------------------*/
+.mes1{
+    height:300px;
+    width:450px;
+    background-color:#ffffff;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:3;
+    border-radius: 20px;
+    display:none;           /*消失*/
+}
+.stab1{
+    background-color:#9DC3E6;
+    padding:10px 20px;
+    text-align:right;
+    font-family:微軟正黑體;     
+    font-weight:bolder; 
+    font-size:20px; 
+    border-top-left-radius: 20px;
+    border-top-right-radius:20px;
+}
+.censtab{
+    padding-top:20px;
+    text-align:center;
+    padding-bottom:20px;
+    font-size:20px;
+    font-family:微軟正黑體;
+    font-weight:bolder; 
+}
+.sebutton1{
+    padding-top:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.sb1{
+    width:150px;
+    height:150px;
+    margin:0px 30px 10px;
+    text-align: center;
+    line-height:150px;
+    background-color:#F2F2F2;
+    border-radius: 20px;
+    border: 2px solid #D0CECE;
+    font-family:微軟正黑體;
+    font-size:60px; 
+    font-weight:bolder;
+}
+.sb1:active{
+    background-color:#D0CECE;
+}
+
+
+/*----放下鞋子提示框----------------------------------------*/
+.imgl{
+    padding-top:10px;
+    vertical-align: middle;
+    text-align: center;
+}
+.mes2{
+    height:380px;
+    width:470px;
+    background-color:#ffffff;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:3;
+    border-radius: 20px;
+    border: 5px solid #D0CECE;
+    display:none;
+}
+.stab3{
+   text-align:center;
+   font-size:20px;
+    font-family:微軟正黑體;
+    font-weight:bolder; 
+}
+.sebutton2{
+    padding-top:10px;
+    display:flex;
+    justify-content:center;
+}
+.stab4{
+    text-align:center;
+    height:44px;
+    width:140px;
+    background-color:#F2F2F2;
+    border: 2px solid #D0CECE;
+    font-size:30px;
+
+}
+.stab4:active{
+    background-color:#D0CECE;
+}
+
+
+/*----黃色提示框----------------------------------------*/
+.stab5{
+    background-color:#FFC000;
+    padding:10px 20px;
+    text-align:right;
+    font-family:微軟正黑體;     
+    font-weight:bolder; 
+    font-size:20px; 
+    border-top-left-radius: 20px;
+    border-top-right-radius:20px;
+}

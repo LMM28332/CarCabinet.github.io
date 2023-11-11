@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <title>Arduino實作草稿 測試</title>
+    <link rel="stylesheet" type="text/css" href="Arduino-text.css"/>
+    <body>
+            <!----標題1---->
+            <div class="bigtitle">Arduino自走車物聯網鞋櫃控制</div>
+            <!----標題2---->
+            <div class="smalltitle">
+                <span>請點選下列想要放置的鞋櫃(</span>
+                <span class="col1">藍色</span>
+                <span>：空鞋櫃)</span>
+                <span>或選擇要拿取的鞋櫃(</span>
+                <span class="col2">黃色</span>
+                <span>：鞋櫃有鞋子)</span>
+            </div>
+
+
+             <!----鞋櫃-------------------------------------------------------------->
+            <div class="centerca1">
+                <div id="ab2" class="shca" onclick="fullc1(this)">2A</div>
+                <div id="ay2" class="shcb" onclick="takeout1(this)">2A</div>
+                <div id="bb2" class="shca" onclick="fullc2(this)">2B</div>
+                <div id="by2" class="shcb" onclick="takeout2(this)">2B</div>
+                <div id="cb2" class="shca" onclick="fullc3(this)">2C</div>  
+                <div id="cy2" class="shcb" onclick="takeout3(this)">2C</div>            
+            </div>
+            <div class="centerca2">
+                <div id="ab1" class="shca" onclick="fullc4(this)">1A</div>
+                <div id="ay1" class="shcb" onclick="takeout4(this)">1A</div>
+                <div id="bb1" class="shca" onclick="fullc5(this)">1B</div>
+                <div id="by1" class="shcb" onclick="takeout5(this)">1B</div>
+                <div id="cb1" class="shca" onclick="fullc6(this)">1C</div>  
+                <div id="cy1" class="shcb" onclick="takeout6(this)">1C</div>     
+            </div> 
+
+
+            <!----灰色蒙板-------------------------------------------------------------->               
+            <div id="grayboard" 
+                style=
+                "opacity:0.4; 
+                background-color:#afafaf; 
+                position:fixed;
+                width:100%; 
+                height:100%; 
+                top:0px; 
+                left:0px; 
+                z-index:2;
+                display:none;"
+            > </div>
+
+
+            <!----藍色提示框-------------------------------------------------------------->
+            <!--2A鞋櫃-->
+           <div id="msgBB1" class="mes1">
+                <div class="stab1" onclick="XNOb1()">X</div>
+                <div class="censtab">確定要將鞋子放在<span class="col3">"2A"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESb1()">YES</div><div class="sb1" onclick="XNOb1()">NO</div>
+                </div>
+            </div>
+            <!--2B鞋櫃-->
+           <div id="msgBB2" class="mes1">
+                <div class="stab1" onclick="XNOb2()">X</div>
+                <div class="censtab">確定要將鞋子放在<span class="col3">"2B"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESb2()">YES</div><div class="sb1" onclick="XNOb2()">NO</div>
+                </div>
+            </div>
+            <!--2C鞋櫃-->
+           <div id="msgBB3" class="mes1">
+                <div class="stab1" onclick="XNOb3()">X</div>
+                <div class="censtab">確定要將鞋子放在<span class="col3">"2C"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESb3()">YES</div><div class="sb1" onclick="XNOb3()">NO</div>
+                </div>
+            </div>
+            <!--1A鞋櫃-->
+            <div id="msgBB4" class="mes1">
+                <div class="stab1" onclick="XNOb4()">X</div>
+                <div class="censtab">確定要將鞋子放在<span class="col3">"1A"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESb4()">YES</div><div class="sb1" onclick="XNOb4()">NO</div>
+                </div>
+            </div>
+            <!--1B鞋櫃-->
+           <div id="msgBB5" class="mes1">
+                <div class="stab1" onclick="XNOb5()">X</div>
+                <div class="censtab">確定要將鞋子放在<span class="col3">"1B"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESb5()">YES</div><div class="sb1" onclick="XNOb5()">NO</div>
+                </div>
+            </div>
+            <!--1C鞋櫃-->
+           <div id="msgBB6" class="mes1">
+                <div class="stab1" onclick="XNOb6()">X</div>
+                <div class="censtab">確定要將鞋子放在<span class="col3">"1C"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESb6()">YES</div><div class="sb1" onclick="XNOb6()">NO</div>
+                </div>
+            </div>
+
+            <!----放下鞋子提示框-------------------------------------------------------------->
+            <!--2A鞋櫃-->
+            <div id="msgBS1" class="mes2">
+                <div class="imgl">
+                  <img src="放鞋.gif" height="250">  
+                </div>
+                <div class="stab3">將鞋子放在托盤後請按下"確定"。</div>
+                <div class="sebutton2">
+                    <div class="stab4" onclick="sureb1()">確定</div> 
+                </div>              
+            </div>
+            <!--2B鞋櫃-->
+            <div id="msgBS2" class="mes2">
+                <div class="imgl">
+                  <img src="放鞋.gif" height="250">  
+                </div>
+                <div class="stab3">將鞋子放在托盤後請按下"確定"。</div>
+                <div class="sebutton2">
+                    <div class="stab4" onclick="sureb2()">確定</div> 
+                </div>              
+            </div>
+            <!--2C鞋櫃-->
+            <div id="msgBS3" class="mes2">
+                <div class="imgl">
+                  <img src="放鞋.gif" height="250">  
+                </div>
+                <div class="stab3">將鞋子放在托盤後請按下"確定"。</div>
+                <div class="sebutton2">
+                    <div class="stab4" onclick="sureb3()">確定</div> 
+                </div>              
+            </div>
+            <!--1A鞋櫃-->
+            <div id="msgBS4" class="mes2">
+                <div class="imgl">
+                  <img src="放鞋.gif" height="250">  
+                </div>
+                <div class="stab3">將鞋子放在托盤後請按下"確定"。</div>
+                <div class="sebutton2">
+                    <div class="stab4" onclick="sureb4()">確定</div> 
+                </div>              
+            </div>
+            <!--1B鞋櫃-->
+            <div id="msgBS5" class="mes2">
+                <div class="imgl">
+                  <img src="放鞋.gif" height="250">  
+                </div>
+                <div class="stab3">將鞋子放在托盤後請按下"確定"。</div>
+                <div class="sebutton2">
+                    <div class="stab4" onclick="sureb5()">確定</div> 
+                </div>              
+            </div>
+            <!--1C鞋櫃-->
+            <div id="msgBS6" class="mes2">
+                <div class="imgl">
+                  <img src="放鞋.gif" height="250">  
+                </div>
+                <div class="stab3">將鞋子放在托盤後請按下"確定"。</div>
+                <div class="sebutton2">
+                    <div class="stab4" onclick="sureb6()">確定</div> 
+                </div>              
+            </div>
+
+            <!----黃色提示框-------------------------------------------------------------->
+            <!--2A鞋櫃-->
+           <div id="msgYB1" class="mes1">
+                <div class="stab5" onclick="XNOy1()">X</div>
+                <div class="censtab">確定要將鞋子取出<span class="col3">"2A"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESy1()">YES</div><div class="sb1" onclick="XNOy1()">NO</div>
+                </div>
+            </div>
+            <!--2B鞋櫃-->
+            <div id="msgYB2" class="mes1">
+                <div class="stab5" onclick="XNOy2()">X</div>
+                <div class="censtab">確定要將鞋子取出<span class="col3">"2B"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESy2()">YES</div><div class="sb1" onclick="XNOy2()">NO</div>
+                </div>
+            </div>
+            <!--2C鞋櫃-->
+            <div id="msgYB3" class="mes1">
+                <div class="stab5" onclick="XNOy3()">X</div>
+                <div class="censtab">確定要將鞋子取出<span class="col3">"2C"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESy3()">YES</div><div class="sb1" onclick="XNOy3()">NO</div>
+                </div>
+            </div>
+            <!--1A鞋櫃-->
+           <div id="msgYB4" class="mes1">
+            <div class="stab5" onclick="XNOy4()">X</div>
+            <div class="censtab">確定要將鞋子取出<span class="col3">"1A"</span>鞋櫃中？</div>
+            <div class="sebutton1">
+                <div class="sb1" onclick="YESy4()">YES</div><div class="sb1" onclick="XNOy4()">NO</div>
+            </div>
+            </div>
+            <!--1B鞋櫃-->
+            <div id="msgYB5" class="mes1">
+                <div class="stab5" onclick="XNOy5()">X</div>
+                <div class="censtab">確定要將鞋子取出<span class="col3">"1B"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESy5()">YES</div><div class="sb1" onclick="XNOy5()">NO</div>
+                </div>
+            </div>
+            <!--1C鞋櫃-->
+            <div id="msgYB6" class="mes1">
+                <div class="stab5" onclick="XNOy6()">X</div>
+                <div class="censtab">確定要將鞋子取出<span class="col3">"1C"</span>鞋櫃中？</div>
+                <div class="sebutton1">
+                    <div class="sb1" onclick="YESy6()">YES</div><div class="sb1" onclick="XNOy6()">NO</div>
+                </div>
+            </div>
+
+        <!----拿起鞋子提示框-------------------------------------------------------------->
+        <!--2A鞋櫃-->
+        <div id="msgYS1" class="mes2">
+            <div class="imgl">
+              <img src="取鞋.gif" height="250">  
+            </div>
+            <div class="stab3">將鞋子取出托盤後請按下"確定"。</div>
+            <div class="sebutton2">
+                <div class="stab4" onclick="surey1()">確定</div> 
+            </div>              
+        </div>
+        <!--2B鞋櫃-->
+        <div id="msgYS2" class="mes2">
+            <div class="imgl">
+              <img src="取鞋.gif" height="250">  
+            </div>
+            <div class="stab3">將鞋子取出托盤後請按下"確定"。</div>
+            <div class="sebutton2">
+                <div class="stab4" onclick="surey2()">確定</div> 
+            </div>              
+        </div>
+        <!--2C鞋櫃-->
+        <div id="msgYS3" class="mes2">
+            <div class="imgl">
+              <img src="取鞋.gif" height="250">  
+            </div>
+            <div class="stab3">將鞋子取出托盤後請按下"確定"。</div>
+            <div class="sebutton2">
+                <div class="stab4" onclick="surey3()">確定</div> 
+            </div>              
+        </div>
+         <!--1A鞋櫃-->
+        <div id="msgYS4" class="mes2">
+            <div class="imgl">
+              <img src="取鞋.gif" height="250">  
+            </div>
+            <div class="stab3">將鞋子取出托盤後請按下"確定"。</div>
+            <div class="sebutton2">
+                <div class="stab4" onclick="surey4()">確定</div> 
+            </div>              
+        </div>
+        <!--1B鞋櫃-->
+        <div id="msgYS5" class="mes2">
+            <div class="imgl">
+              <img src="取鞋.gif" height="250">  
+            </div>
+            <div class="stab3">將鞋子取出托盤後請按下"確定"。</div>
+            <div class="sebutton2">
+                <div class="stab4" onclick="surey5()">確定</div> 
+            </div>              
+        </div>
+        <!--1C鞋櫃-->
+        <div id="msgYS6" class="mes2">
+            <div class="imgl">
+              <img src="取鞋.gif" height="250">  
+            </div>
+            <div class="stab3">將鞋子取出托盤後請按下"確定"。</div>
+            <div class="sebutton2">
+                <div class="stab4" onclick="surey6()">確定</div> 
+            </div>              
+        </div>
+            
+        <script>
+
+            /*----按下空鞋櫃後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function fullc1(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB1Div=document.querySelector("#msgBB1");
+                grayboardDiv.style.display="block";
+                msgBB1Div.style.display="block";
+                CarOutArduino(1);
+            }
+            //2B鞋櫃
+            function fullc2(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB2Div=document.querySelector("#msgBB2");
+                grayboardDiv.style.display="block";
+                msgBB2Div.style.display="block";
+                CarOutArduino(2);
+                
+            }
+            //2C鞋櫃
+            function fullc3(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB3Div=document.querySelector("#msgBB3");
+                grayboardDiv.style.display="block";
+                msgBB3Div.style.display="block";
+                CarOutArduino(3);
+            }
+            //1A鞋櫃
+            function fullc4(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB4Div=document.querySelector("#msgBB4");
+                grayboardDiv.style.display="block";
+                msgBB4Div.style.display="block";
+                CarOutArduino(4);
+            }
+            //1B鞋櫃
+            function fullc5(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB5Div=document.querySelector("#msgBB5");
+                grayboardDiv.style.display="block";
+                msgBB5Div.style.display="block";
+                CarOutArduino(5);
+            }
+            //1C鞋櫃
+            function fullc6(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB6Div=document.querySelector("#msgBB6");
+                grayboardDiv.style.display="block";
+                msgBB6Div.style.display="block";
+                CarOutArduino(6);
+            }
+
+            /*按下NO與X後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function XNOb1(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB1Div=document.querySelector("#msgBB1");
+                grayboardDiv.style.display="none";
+                msgBB1Div.style.display="none";
+            }
+            //2B鞋櫃
+            function XNOb2(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB2Div=document.querySelector("#msgBB2");
+                grayboardDiv.style.display="none";
+                msgBB2Div.style.display="none";
+            }
+            //2C鞋櫃
+            function XNOb3(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB3Div=document.querySelector("#msgBB3");
+                grayboardDiv.style.display="none";
+                msgBB3Div.style.display="none";
+            }
+             //1A鞋櫃
+             function XNOb4(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB4Div=document.querySelector("#msgBB4");
+                grayboardDiv.style.display="none";
+                msgBB4Div.style.display="none";
+            }
+            //1B鞋櫃
+            function XNOb5(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB5Div=document.querySelector("#msgBB5");
+                grayboardDiv.style.display="none";
+                msgBB5Div.style.display="none";
+            }
+            //1C鞋櫃
+            function XNOb6(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBB6Div=document.querySelector("#msgBB6");
+                grayboardDiv.style.display="none";
+                msgBB6Div.style.display="none";
+            }
+
+            /*按下YES後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function YESb1(){
+                let msgBB1Div=document.querySelector("#msgBB1");
+                let msgBS1Div=document.querySelector("#msgBS1");
+                msgBB1Div.style.display="none";
+                msgBS1Div.style.display="block";
+                CarOutArduino(1);
+            }
+            //2B鞋櫃
+            function YESb2(){
+                let msgBB2Div=document.querySelector("#msgBB2");
+                let msgBS2Div=document.querySelector("#msgBS2");
+                msgBB2Div.style.display="none";
+                msgBS2Div.style.display="block";
+                CarOutArduino(2);
+            }
+            //2A鞋櫃
+            function YESb3(){
+                let msgBB3Div=document.querySelector("#msgBB3");
+                let msgBS3Div=document.querySelector("#msgBS3");
+                msgBB3Div.style.display="none";
+                msgBS3Div.style.display="block";
+                CarOutArduino(3);
+            }
+            //1A鞋櫃
+            function YESb4(){
+                let msgBB4Div=document.querySelector("#msgBB4");
+                let msgBS4Div=document.querySelector("#msgBS4");
+                msgBB4Div.style.display="none";
+                msgBS4Div.style.display="block";
+                CarOutArduino(4);
+            }
+            //1B鞋櫃
+            function YESb5(){
+                let msgBB5Div=document.querySelector("#msgBB5");
+                let msgBS5Div=document.querySelector("#msgBS5");
+                msgBB5Div.style.display="none";
+                msgBS5Div.style.display="block";
+                CarOutArduino(5);
+            }
+            //1C鞋櫃
+            function YESb6(){
+                let msgBB6Div=document.querySelector("#msgBB6");
+                let msgBS6Div=document.querySelector("#msgBS6");
+                msgBB6Div.style.display="none";
+                msgBS6Div.style.display="block";
+                CarOutArduino(6);
+            }
+
+             /*發送到Arduino使車子到空櫃---------------------------------*/
+             function CarOutArduino(value) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "http://   ", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("Data sent successfully to Arduino");
+                    }
+                };
+                let datacarout = "invalue=" + invalue;
+                xhr.send(datacarout);
+            }
+
+            /*按下"確定"後執行----------------------------------------*/
+            //2A鞋櫃
+            function sureb1(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBS1Div=document.querySelector("#msgBS1");
+                let ab2Div=document.querySelector("#ab2");
+                let ay2Div=document.querySelector("#ay2");
+                grayboardDiv.style.display="none";
+                msgBS1Div.style.display="none";
+                ab2Div.style.display="none";
+                ay2Div.style.display="block"; 
+                CarInArduino(1);             
+            }
+            //2B鞋櫃
+            function sureb2(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBS2Div=document.querySelector("#msgBS2");
+                let bb2Div=document.querySelector("#bb2");
+                let by2Div=document.querySelector("#by2");
+                grayboardDiv.style.display="none";
+                msgBS2Div.style.display="none";
+                bb2Div.style.display="none";
+                by2Div.style.display="block"; 
+                CarInArduino(2);              
+            }
+            //2C鞋櫃
+            function sureb3(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBS3Div=document.querySelector("#msgBS3");
+                let cb2Div=document.querySelector("#cb2");
+                let cy2Div=document.querySelector("#cy2");
+                grayboardDiv.style.display="none";
+                msgBS3Div.style.display="none";
+                cb2Div.style.display="none";
+                cy2Div.style.display="block";
+                CarInArduino(3);               
+            }
+            //1A鞋櫃
+            function sureb4(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBS4Div=document.querySelector("#msgBS4");
+                let ab1Div=document.querySelector("#ab1");
+                let ay1Div=document.querySelector("#ay1");
+                grayboardDiv.style.display="none";
+                msgBS4Div.style.display="none";
+                ab1Div.style.display="none";
+                ay1Div.style.display="block"; 
+                CarInArduino(4);              
+            }
+            //1B鞋櫃
+            function sureb5(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBS5Div=document.querySelector("#msgBS5");
+                let bb1Div=document.querySelector("#bb1");
+                let by1Div=document.querySelector("#by1");
+                grayboardDiv.style.display="none";
+                msgBS5Div.style.display="none";
+                bb1Div.style.display="none";
+                by1Div.style.display="block"; 
+                CarInArduino(5);              
+            }
+            //1C鞋櫃
+            function sureb6(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgBS6Div=document.querySelector("#msgBS6");
+                let cb1Div=document.querySelector("#cb1");
+                let cy1Div=document.querySelector("#cy1");
+                grayboardDiv.style.display="none";
+                msgBS6Div.style.display="none";
+                cb1Div.style.display="none";
+                cy1Div.style.display="block"; 
+                CarInArduino(6);              
+            }
+            
+            /*發送到Arduino使車子到滿櫃---------------------------------*/
+            function CarInArduino(value) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "http://   ", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("Data sent successfully to Arduino");
+                    }
+                };
+                let datacarin = "outvalue=" + outvalue;
+                xhr.send(datacarin);
+            }
+
+            /*----按下鞋櫃後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function takeout1(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB1Div=document.querySelector("#msgYB1");
+                grayboardDiv.style.display="block";
+                msgYB1Div.style.display="block";
+            }
+             //2B鞋櫃
+             function takeout2(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB2Div=document.querySelector("#msgYB2");
+                grayboardDiv.style.display="block";
+                msgYB2Div.style.display="block";
+            }
+             //2C鞋櫃
+             function takeout3(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB3Div=document.querySelector("#msgYB3");
+                grayboardDiv.style.display="block";
+                msgYB3Div.style.display="block";
+            }
+             //1A鞋櫃
+             function takeout4(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB4Div=document.querySelector("#msgYB4");
+                grayboardDiv.style.display="block";
+                msgYB4Div.style.display="block";
+            }
+             //1B鞋櫃
+             function takeout5(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB5Div=document.querySelector("#msgYB5");
+                grayboardDiv.style.display="block";
+                msgYB5Div.style.display="block";
+            }
+             //1C鞋櫃
+             function takeout6(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB6Div=document.querySelector("#msgYB6");
+                grayboardDiv.style.display="block";
+                msgYB6Div.style.display="block";
+            }
+
+            /*按下NO與X後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function XNOy1(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB1Div=document.querySelector("#msgYB1");
+                grayboardDiv.style.display="none";
+                msgYB1Div.style.display="none";
+            }
+            //2B鞋櫃
+            function XNOy2(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB2Div=document.querySelector("#msgYB2");
+                grayboardDiv.style.display="none";
+                msgYB2Div.style.display="none";
+            }
+            //2C鞋櫃
+            function XNOy3(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB3Div=document.querySelector("#msgYB3");
+                grayboardDiv.style.display="none";
+                msgYB3Div.style.display="none";
+            }
+            //1A鞋櫃
+            function XNOy4(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB4Div=document.querySelector("#msgYB4");
+                grayboardDiv.style.display="none";
+                msgYB4Div.style.display="none";
+            }
+            //1B鞋櫃
+            function XNOy5(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB5Div=document.querySelector("#msgYB5");
+                grayboardDiv.style.display="none";
+                msgYB5Div.style.display="none";
+            }
+            //1C鞋櫃
+            function XNOy6(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYB6Div=document.querySelector("#msgYB6");
+                grayboardDiv.style.display="none";
+                msgYB6Div.style.display="none";
+            }
+
+            /*按下YES後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function YESy1(){
+                let msgYB1Div=document.querySelector("#msgYB1");
+                let msgYS1Div=document.querySelector("#msgYS1");
+                msgYB1Div.style.display="none";
+                msgYS1Div.style.display="block";
+                CarOutArduino(1);
+            }
+            //2B鞋櫃
+            function YESy2(){
+                let msgYB2Div=document.querySelector("#msgYB2");
+                let msgYS2Div=document.querySelector("#msgYS2");
+                msgYB2Div.style.display="none";
+                msgYS2Div.style.display="block";
+                CarOutArduino(2);
+            }
+            //2C鞋櫃
+            function YESy3(){
+                let msgYB3Div=document.querySelector("#msgYB3");
+                let msgYS3Div=document.querySelector("#msgYS3");
+                msgYB3Div.style.display="none";
+                msgYS3Div.style.display="block";
+                CarOutArduino(3);
+            }
+            //1A鞋櫃
+            function YESy4(){
+                let msgYB4Div=document.querySelector("#msgYB4");
+                let msgYS4Div=document.querySelector("#msgYS4");
+                msgYB4Div.style.display="none";
+                msgYS4Div.style.display="block";
+                CarOutArduino(4);
+            }
+            //1B鞋櫃
+            function YESy5(){
+                let msgYB5Div=document.querySelector("#msgYB5");
+                let msgYS5Div=document.querySelector("#msgYS5");
+                msgYB5Div.style.display="none";
+                msgYS5Div.style.display="block";
+                CarOutArduino(5);
+            }
+            //1C鞋櫃
+            function YESy6(){
+                let msgYB6Div=document.querySelector("#msgYB6");
+                let msgYS6Div=document.querySelector("#msgYS6");
+                msgYB6Div.style.display="none";
+                msgYS6Div.style.display="block";
+                CarOutArduino(6);
+            }
+
+            /*按下"確定"後執行--------------------------------------------------------------*/
+            //2A鞋櫃
+            function surey1(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYS1Div=document.querySelector("#msgYS1");
+                let ab2Div=document.querySelector("#ab2");
+                let ay2Div=document.querySelector("#ay2");
+                grayboardDiv.style.display="none";
+                msgYS1Div.style.display="none";
+                ab2Div.style.display="block";
+                ay2Div.style.display="none";
+                CarInArduino(1);
+            }
+            //2B鞋櫃
+           function surey2(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYS2Div=document.querySelector("#msgYS2");
+               let bb2Div=document.querySelector("#bb2");
+                let by2Div=document.querySelector("#by2");
+                grayboardDiv.style.display="none";
+                msgYS2Div.style.display="none";
+                bb2Div.style.display="block";
+                by2Div.style.display="none";
+                CarInArduino(2);
+            }
+            //2C鞋櫃
+            function surey3(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYS3Div=document.querySelector("#msgYS3");
+               let cb2Div=document.querySelector("#cb2");
+                let cy2Div=document.querySelector("#cy2");
+                grayboardDiv.style.display="none";
+                msgYS3Div.style.display="none";
+                cb2Div.style.display="block";
+                cy2Div.style.display="none";
+                CarInArduino(3);
+            }
+            //1A鞋櫃
+            function surey4(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYS4Div=document.querySelector("#msgYS4");
+               let ab1Div=document.querySelector("#ab1");
+                let ay1Div=document.querySelector("#ay1");
+                grayboardDiv.style.display="none";
+                msgYS4Div.style.display="none";
+                ab1Div.style.display="block";
+                ay1Div.style.display="none";
+                CarInArduino(4);
+            }
+            //1B鞋櫃
+            function surey5(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYS5Div=document.querySelector("#msgYS5");
+               let bb1Div=document.querySelector("#bb1");
+                let by1Div=document.querySelector("#by1");
+                grayboardDiv.style.display="none";
+                msgYS5Div.style.display="none";
+                bb1Div.style.display="block";
+                by1Div.style.display="none";
+                CarInArduino(5);
+            }
+            //1C鞋櫃
+            function surey6(){
+                let grayboardDiv=document.querySelector("#grayboard");
+                let msgYS6Div=document.querySelector("#msgYS6");
+               let cb1Div=document.querySelector("#cb1");
+                let cy1Div=document.querySelector("#cy1");
+                grayboardDiv.style.display="none";
+                msgYS6Div.style.display="none";
+                cb1Div.style.display="block";
+                cy1Div.style.display="none";
+                CarInArduino(6);
+            }
+
+        </script>
+    </body>
+</html>
